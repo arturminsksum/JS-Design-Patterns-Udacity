@@ -1,0 +1,29 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: './app.js',
+  output: {
+    filename: 'bundle.js',
+  },
+  devtool: 'source-map',
+  watch: true,
+  module: {
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react', 'es2017', 'stage-2'],
+          // plugins: ["transform-runtime"]
+        },
+      },
+    ],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'template.html',
+    }),
+  ],
+};
