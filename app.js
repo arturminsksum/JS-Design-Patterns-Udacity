@@ -18,23 +18,28 @@ const view = {
     const body = document.querySelector('body');
     body.innerHTML = '';
 
-    catList.cats.forEach(cat => {
+    for (var i = 0; i < catList.cats.length; i++) {
       const section = document.createElement('section');
 
       const counter = document.createElement('p');
-      counter.textContent = cat.counter;
+      counter.textContent = catList.cats[i].counter;
 
       const image = document.createElement('img');
-      image.src = cat.imageUrl;
-      image.addEventListener('click', () => {
-        cat.counter++;
-        counter.textContent = cat.counter;
-      });
+      image.src = catList.cats[i].imageUrl;
+      image.addEventListener(
+        'click',
+        (function(j) {
+          return function() {
+            catList.cats[j].counter++;
+            counter.textContent = catList.cats[j].counter;
+          };
+        })(i),
+      );
 
       section.appendChild(image);
       section.appendChild(counter);
       body.appendChild(section);
-    });
+    }
   },
 };
 
