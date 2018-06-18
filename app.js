@@ -31,14 +31,15 @@ const model = {
   ]
 };
 
-const app = document.getElementById('list');
-
 const view = {
   displayList() {
+    const app = document.getElementById('list');
     const listUl = document.createElement('ul');
+    let listLi;
+    const cats = controller.getCats();
 
-    controller.getCats().forEach(cat => {
-      const listLi = document.createElement('li');
+    cats.forEach(cat => {
+      listLi = document.createElement('li');
       listLi.textContent = cat.name;
       listLi.addEventListener('click', () => {
         controller.chooseCat(cat);
@@ -56,12 +57,10 @@ const view = {
     image.src = cat.imageUrl;
     image.addEventListener('click', controller.changeCount);
 
-    const figcaption = document.querySelector('figcaption');
-
-    const name = document.querySelector('p');
+    const name = document.querySelector('figcaption p');
     name.textContent = cat.name;
 
-    const counter = document.querySelector('i');
+    const counter = document.querySelector('figcaption i');
     counter.textContent = cat.counter;
   }
 };
