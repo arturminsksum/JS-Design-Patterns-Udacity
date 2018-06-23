@@ -32,9 +32,11 @@ const model = {
 };
 
 const view = {
-  displayList() {
-    const app = document.getElementById('list');
-    const listUl = document.createElement('ul');
+  initList() {
+    this.listUl = document.getElementById('list');
+    this.renderList()
+  },
+  renderList() {
     let listLi;
     const cats = controller.getCats();
 
@@ -44,24 +46,22 @@ const view = {
       listLi.addEventListener('click', () => {
         controller.chooseCat(cat);
       });
-      listUl.appendChild(listLi);
+      this.listUl.appendChild(listLi);
     });
-
-    app.appendChild(listUl);
   },
-  displayCat(cat) {
-    const figure = document.querySelector('figure');
-    figure.id = cat.id;
+  initCat() {
+    this.figure = document.querySelector('figure');
+    this.image = document.querySelector('img');
+    this.name = document.querySelector('figcaption p');
+    this.counter = document.querySelector('figcaption i');
 
-    const image = document.querySelector('img');
-    image.src = cat.imageUrl;
-    image.addEventListener('click', controller.changeCount);
-
-    const name = document.querySelector('figcaption p');
-    name.textContent = cat.name;
-
-    const counter = document.querySelector('figcaption i');
-    counter.textContent = cat.counter;
+    this.image.addEventListener('click', controller.incrementCounter);
+  },
+  renderCat(cat) {
+    this.figure.id = cat.id;
+    this.image.src = cat.imageUrl;
+    this.name.textContent = cat.name;
+    this.counter.textContent = cat.counter;
   }
 };
 
@@ -70,18 +70,18 @@ const controller = {
     return model.cats;
   },
   chooseCat(cat) {
-    view.displayCat(cat);
+    view.renderCat(cat);
   },
-  changeCount(event) {
-    const targetId = event.target.parentNode.id;
-    const cat = model.cats.find(cat => cat.id === targetId);
-    cat.counter++;
-    const counter = document.querySelector('i');
-    counter.textContent = cat.counter;
+  incrementCounter(event) {
+    this.targetId = event.target.parentNode.id;
+    this.cat = model.cats.find(cat => cat.id === this.targetId);
+    this.cat.counter++;
+    view.renderCat(this.cat);
   },
 
   init() {
-    view.displayList();
+    view.initList();
+    view.initCat();
   }
 };
 
