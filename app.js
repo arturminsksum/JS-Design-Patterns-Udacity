@@ -29,6 +29,8 @@ const model = {
       counter: 0
     }
   ]
+  ],
+  currentCat: null,
 };
 
 const view = {
@@ -44,7 +46,8 @@ const view = {
       listLi = document.createElement('li');
       listLi.textContent = cat.name;
       listLi.addEventListener('click', () => {
-        controller.chooseCat(cat);
+        controller.setCurrentCat(cat);
+        this.renderCat();
       });
       this.listUl.appendChild(listLi);
     });
@@ -56,9 +59,11 @@ const view = {
     this.counter = document.querySelector('figcaption i');
 
     this.image.addEventListener('click', controller.incrementCounter);
+
+    this.renderCat();
   },
-  renderCat(cat) {
-    this.figure.id = cat.id;
+  renderCat() {
+    const cat = controller.getCurrentCat();
     this.image.src = cat.imageUrl;
     this.name.textContent = cat.name;
     this.counter.textContent = cat.counter;
@@ -66,22 +71,24 @@ const view = {
 };
 
 const controller = {
+  init() {
+    model.currentCat = model.cats[0];
+    view.initList();
+    view.initCat();
+  },
   getCats() {
     return model.cats;
   },
-  chooseCat(cat) {
-    view.renderCat(cat);
+  setCurrentCat(cat) {
+    model.currentCat = cat;
   },
-  incrementCounter(event) {
-    this.targetId = event.target.parentNode.id;
-    this.cat = model.cats.find(cat => cat.id === this.targetId);
-    this.cat.counter++;
-    view.renderCat(this.cat);
+  getCurrentCat() {
+    return model.currentCat;
   },
-
-  init() {
-    view.initList();
-    view.initCat();
+  incrementCounter() {
+    model.currentCat.counter++;
+    view.renderCat();
+  },
   }
 };
 
