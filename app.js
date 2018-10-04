@@ -1,3 +1,5 @@
+import ko from 'knockout';
+
 const model = {
   cats: [
     {
@@ -28,6 +30,19 @@ const model = {
   currentCat: null,
   editorVisibility: false
 };
+
+var ViewModel = function() {
+  this.clickCount = ko.observable(0);
+  this.name = ko.observable('Ruby');
+  this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
+  this.imgAttribution = ko.observable('img/22252709_010df3379e_z.jpg');
+
+  this.incrementCounter = function() {
+    this.clickCount(this.clickCount() + 1);
+  };
+};
+
+ko.applyBindings(new ViewModel());
 
 // const view = {
 //   initList() {
