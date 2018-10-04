@@ -3,41 +3,19 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>JS Design Patterns</title>
+  <title>Cat Clicker</title>
 </head>
 
 <body>
-  <ul id="list"></ul>
-  <figure>
-    <img>
-    <figcaption>
-      <p></p>
-      <i></i>
-    </figcaption>
-  </figure>
-  <button class="edit">Edit</button>
-  <br>
-  <br>
-  <form id="form" style="display: none;">
-    <fieldset>
-      <span>Name</span>
-      <input type="text" name="name">
-    </fieldset>
-    <fieldset>
-      <span>Image url</span>
-      <input type="text" name="url">
-    </fieldset>
-    <fieldset>
-      <span>Count</span>
-      <input type="number" name="count">
-    </fieldset>
-    <fieldset>
-      <button class="cancel">Cancel</button>
-      <button type="submit" class="save">Save</button>
-    </fieldset>
-  </form>
+  <ul id="cat-list"></ul>
+  <div id="cat">
+
+    <h2 id="cat-name"></h2>
+    <div id="cat-count"></div>
+    <img id="cat-img" src="" alt="cute cat">
+
+  </div>
+  <script src="js/lib/knockout-3.2.0.js"></script>
 </body>
 
 </html>
