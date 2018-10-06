@@ -1,59 +1,6 @@
 import ko from 'knockout';
 
-const model = {
-  cats: [
-    {
-      id: '0',
-      name: 'Mickey',
-      imageUrl: './img/22252709_010df3379e_z.jpg',
-      counter: 0
-    },
-    {
-      id: '1',
-      name: 'Max',
-      imageUrl: './img/434164568_fea0ad4013_z.jpg',
-      counter: 0
-    },
-    {
-      id: '2',
-      name: 'Orange',
-      imageUrl: './img/1413379559_412a540d29_z.jpg',
-      counter: 0
-    },
-    {
-      id: '3',
-      name: 'Ruby',
-      imageUrl: './img/9648464288_2516b35537_z.jpg',
-      counter: 0
-    }
-  ],
-  currentCat: null,
-  editorVisibility: false
-};
-
-var ViewModel = function() {
-  this.clickCount = ko.observable(0);
-  this.name = ko.observable('Ruby');
-  this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
-  this.imgAttribution = ko.observable('img/22252709_010df3379e_z.jpg');
-
-  this.title = ko.computed(() => {
-    var title;
-    var clicks = this.clickCount();
-    if (clicks < 3) {
-      title = 'Infant';
-    } else if (clicks < 6) {
-      title = 'Teen';
-    } else {
-      title = 'Adult';
-    }
-    return title;
-  });
-
-  this.incrementCounter = function() {
-    this.clickCount(this.clickCount() + 1);
-  };
-
+var Cat = function() {
   this.cats = ko.observableArray([
     {
       id: '0',
@@ -80,6 +27,32 @@ var ViewModel = function() {
       counter: 0
     }
   ]);
+
+  this.clickCount = ko.observable(0);
+  this.name = ko.observable('Ruby');
+  this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
+  this.imgAttribution = ko.observable('img/22252709_010df3379e_z.jpg');
+
+  this.title = ko.computed(() => {
+    var title;
+    var clicks = this.clickCount();
+    if (clicks < 3) {
+      title = 'Infant';
+    } else if (clicks < 6) {
+      title = 'Teen';
+    } else {
+      title = 'Adult';
+    }
+    return title;
+  });
+};
+
+var ViewModel = function() {
+  this.currentCat = ko.observable(new Cat());
+
+  this.incrementCounter = function() {
+    this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+  };
 };
 
 ko.applyBindings(new ViewModel());
