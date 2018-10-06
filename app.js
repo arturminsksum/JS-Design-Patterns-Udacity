@@ -34,22 +34,24 @@ const model = {
 var ViewModel = function() {
   this.clickCount = ko.observable(0);
   this.name = ko.observable('Ruby');
-  this.level = ko.observable('Newborn');
   this.imgSrc = ko.observable('img/22252709_010df3379e_z.jpg');
   this.imgAttribution = ko.observable('img/22252709_010df3379e_z.jpg');
 
+  this.title = ko.computed(() => {
+    var title;
+    var clicks = this.clickCount();
+    if (clicks < 3) {
+      title = 'Infant';
+    } else if (clicks < 6) {
+      title = 'Teen';
+    } else {
+      title = 'Adult';
+    }
+    return title;
+  });
+
   this.incrementCounter = function() {
     this.clickCount(this.clickCount() + 1);
-    switch (this.clickCount()) {
-      case 3:
-        this.level('Infant');
-        break;
-      case 6:
-        this.level('Teen');
-        break;
-      case 12:
-        this.level('Adult');
-    }
   };
 
   this.cats = ko.observableArray([
