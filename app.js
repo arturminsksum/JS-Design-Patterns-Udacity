@@ -51,6 +51,33 @@ var ViewModel = function() {
         this.level('Adult');
     }
   };
+
+  this.cats = ko.observableArray([
+    {
+      id: '0',
+      name: 'Mickey',
+      imageUrl: './img/22252709_010df3379e_z.jpg',
+      counter: 0
+    },
+    {
+      id: '1',
+      name: 'Max',
+      imageUrl: './img/434164568_fea0ad4013_z.jpg',
+      counter: 0
+    },
+    {
+      id: '2',
+      name: 'Orange',
+      imageUrl: './img/1413379559_412a540d29_z.jpg',
+      counter: 0
+    },
+    {
+      id: '3',
+      name: 'Ruby',
+      imageUrl: './img/9648464288_2516b35537_z.jpg',
+      counter: 0
+    }
+  ]);
 };
 
 ko.applyBindings(new ViewModel());
